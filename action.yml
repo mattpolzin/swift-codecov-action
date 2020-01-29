@@ -1,0 +1,21 @@
+name: swift-codecov
+description: Runs simple analysis on swift test codecov output.
+author: Mathew Polzin
+inputs:
+  CODECOV_JSON:
+    description: The location of the JSON file produced by swift test --enable-code-coverage
+    required: false
+    default: '.build/debug/codecov/*.json'
+  PRINT_STDOUT:
+    description: 'true by default, but if false then will not output the whole codecov table to stdout.'
+    required: false
+    default: 'true'
+outputs:
+  CODECOV:
+    description: Overally code coverage percent.
+branding:
+  color: orange
+  icon: shield
+runs:
+  using: docker
+  image: Dockerfile
