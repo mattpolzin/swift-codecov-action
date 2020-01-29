@@ -19,3 +19,6 @@ branding:
 runs:
   using: docker
   image: Dockerfile
+#  args:
+#    - ${{ inputs.CODECOV_JSON }}
+#    - ${{ inputs.PRINT_STDOUT }}
