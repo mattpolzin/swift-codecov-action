@@ -16,6 +16,8 @@ set -e
 ## - codecov.txt - Code coverage in a file.
 ##
 
+echo "hi! $(ls -la)"
+
 
 # Set default location for JSON
 CODECOV_JSON=${CODECOV_JSON:-.build/debug/codecov/*.json}
