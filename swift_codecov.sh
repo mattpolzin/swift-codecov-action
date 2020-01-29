@@ -6,9 +6,9 @@ set -e
 
 ##
 ## INPUTS
-## - $CODECOV_JSON - The location of the JSON file produced by
+## - $INPUT_CODECOV_JSON - The location of the JSON file produced by
 ##                   swift test --enable-code-coverage
-## - $PRINT_STDOUT - 'true' by default, but if 'false' then will not
+## - $INPUT_PRINT_STDOUT - 'true' by default, but if 'false' then will not
 ##                   output the whole codecov table to stdout.
 ##
 ## OUTPUTS
@@ -16,11 +16,12 @@ set -e
 ## - codecov.txt - Code coverage in a file.
 ##
 
-echo "hi! $(ls -la)"
-
 
 # Set default location for JSON
-CODECOV_JSON=${CODECOV_JSON:-.build/debug/codecov/*.json}
+CODECOV_JSON=${INPUT_CODECOV_JSON:-.build/debug/codecov/*.json}
+
+# Set default print option
+PRINT_STDOUT=${INPUT_PRINT_STDOUT:-true}
 
 # Run Codecov for overall coverage
 COV=`swift-test-codecov $CODECOV_JSON`
@@ -36,6 +37,6 @@ echo "::set-output name=codecov::${COV}"
 echo "::set-env name=CODECOV::${COV}"
 
 # Print to stdout
-if [ "${PRINT_STDOUT:-true}" = 'true' ]; then
+if [ "$PRINT_STDOUT" = 'true' ]; then
   echo "$FULL_COV_TABLE"
 fi
