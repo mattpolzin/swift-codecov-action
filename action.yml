@@ -10,6 +10,9 @@ inputs:
     description: 'true by default, but if false then will not output the whole codecov table to stdout.'
     required: false
     default: 'true'
+  MINIMUM_COVERAGE:
+    description: 'By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.'
+    required: false
 outputs:
   CODECOV:
     description: Overally code coverage percent.
