@@ -31,7 +31,13 @@ else
 fi
 
 # Run Codecov for overall coverage
+set +e
 COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG`
+if [[ "$?" = '1' ]]; then
+  echo $COV
+  exit 1
+fi
+set -e
 
 # Run Codecov for full table
 FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --table`
