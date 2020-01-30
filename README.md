@@ -7,14 +7,22 @@ Run this as a GitHub action in the same workflow job as your project's tests are
 For example,
 ```yaml
 jobs:
-  bionic:
-    container: 
-      image: swift:5.1-bionic
+  codecov:
+    container:
+      image: swift:5.1
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - run: swift test --enable-test-discovery --enable-code-coverage
-    - uses: mattpolzin/swift-codecov-action@0.1.0
+    - uses: mattpolzin/swift-codecov-action@0.3.0
 ```
 
 Note the `--enable-code-coverage` argument to `swift test` is **required**.
+
+Inputs:
+- `CODECOV_JSON`: The location of the JSON file produced by swift test `--enable-code-coverage`. By default `.build/debug/codecov/*.json`.
+- `MINIMUM_COVERAGE`: By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.
+- `PRINT_STDOUT`: `true` by default, but if `false` then will not output the whole codecov table to stdout.
+
+Outputs:
+- `CODECOV`: Overall code coverage percent.
