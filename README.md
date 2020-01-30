@@ -25,4 +25,4 @@ Inputs:
 - `PRINT_STDOUT`: `true` by default, but if `false` then will not output the whole codecov table to stdout.
 
 Outputs:
-- `CODECOV`: Overall code coverage percent.
+- `CODECOV`: Overall code coverage percentage (not output if action fails due to minimum coverage not being met).
