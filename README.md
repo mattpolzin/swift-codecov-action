@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - run: swift test --enable-test-discovery --enable-code-coverage
-    - uses: mattpolzin/swift-codecov-action@0.3.0
+    - uses: mattpolzin/swift-codecov-action@0.4.0
 ```
 
 Note the `--enable-code-coverage` argument to `swift test` is **required**.
