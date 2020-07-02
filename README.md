@@ -4,6 +4,8 @@ A very simple code coverage summary tool for Swift. This tool takes in the JSON 
 
 Run this as a GitHub action in the same workflow job as your project's tests are run.
 
+Note that the flow below will only work if your project can be built & tested in a Linux environment because GitHub Actions cannot run Docker on Mac machines and this action runs in a Docker container.
+
 For example,
 ```yaml
 jobs:
