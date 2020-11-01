@@ -11,12 +11,12 @@ For example,
 jobs:
   codecov:
     container:
-      image: swift:5.1
+      image: swift:5.3
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - run: swift test --enable-test-discovery --enable-code-coverage
-    - uses: mattpolzin/swift-codecov-action@0.4.0
+    - uses: mattpolzin/swift-codecov-action@0.5.0
 ```
 
 Note the `--enable-code-coverage` argument to `swift test` is **required**.
@@ -25,6 +25,7 @@ Inputs:
 - `CODECOV_JSON`: The location of the JSON file produced by swift test `--enable-code-coverage`. By default `.build/debug/codecov/*.json`.
 - `MINIMUM_COVERAGE`: By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.
 - `PRINT_STDOUT`: `true` by default, but if `false` then will not output the whole codecov table to stdout.
+- `SORT_ORDER`: `filename` by default. Determines the sort order of the code coverage table. Possible values: `filename`, `+cov`, `-cov`.
 
 Outputs:
 - `CODECOV`: Overall code coverage percentage (not output if action fails due to minimum coverage not being met).
