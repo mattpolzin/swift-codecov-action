@@ -13,7 +13,7 @@ set -e
 ##                   to make the script fail if the minimum coverage is not met.
 ##
 ## OUTPUTS
-## - $CODECOV    - Overally code coverage percent.
+## - $CODECOV    - Overal code coverage percent.
 ## - ./codecov.txt - Code coverage in a file.
 ##
 
@@ -47,7 +47,7 @@ echo "$FULL_COV_TABLE" > './codecov.txt'
 
 # Export env var
 echo "::set-output name=codecov::${COV}"
-echo "::set-env name=CODECOV::${COV}"
+echo "CODECOV=${COV}" >> $GITHUB_ENV
 
 # Print to stdout
 if [ "$PRINT_STDOUT" = 'true' ]; then
