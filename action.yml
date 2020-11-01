@@ -10,6 +10,10 @@ inputs:
     description: 'true by default, but if false then will not output the whole codecov table to stdout.'
     required: false
     default: 'true'
+  SORT_ORDER:
+    description: 'filename by default, but if specified otherwise will apply a sort order to the test coverage table. This is only relevant if PRINT_STDOUT is true. Possible values: filename, +cov, -cov'
+    required: false
+    default: 'filename'
   MINIMUM_COVERAGE:
     description: 'By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.'
     required: false

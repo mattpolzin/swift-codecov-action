@@ -9,6 +9,8 @@ set -e
 ##                   swift test --enable-code-coverage
 ## - $INPUT_PRINT_STDOUT - 'true' by default, but if 'false' then will not
 ##                   output the whole codecov table to stdout.
+## - $INPUT_SORT_ORDER - 'filename' by default. Possible values: filename,
+## 		     +cov, -cov
 ## - $MINIMUM_COVERAGE   - By default, there is no minimum coverage. Set this
 ##                   to make the script fail if the minimum coverage is not met.
 ##
@@ -24,6 +26,9 @@ CODECOV_JSON=${INPUT_CODECOV_JSON:-.build/debug/codecov/*.json}
 # Set default print option
 PRINT_STDOUT=${INPUT_PRINT_STDOUT:-true}
 
+# Set default sort order
+SORT_ORDER=${INPUT_SORT_ORDER:-filename}
+
 if [[ "$INPUT_MINIMUM_COVERAGE" = '' ]]; then
   MIN_COV_ARG=''
 else
@@ -32,7 +37,7 @@ fi
 
 # Run Codecov for overall coverage
 set +e
-COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG`
+COV=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER $MIN_COV_ARG`
 if [[ "$?" = '1' ]]; then
   echo $COV
   exit 1
