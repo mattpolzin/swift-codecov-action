@@ -15,8 +15,9 @@ set -e
 ##                   to make the script fail if the minimum coverage is not met.
 ##
 ## OUTPUTS
-## - $CODECOV    - Overal code coverage percent.
-## - ./codecov.txt - Code coverage in a file.
+## - $CODECOV             - Overal code coverage percent.
+## - $MINIMUM_COVERAGE    - Passes the input through to the output.
+## - ./codecov.txt        - Code coverage in a file.
 ##
 
 
@@ -38,23 +39,26 @@ fi
 # Run Codecov for overall coverage
 set +e
 COV=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER $MIN_COV_ARG`
-if [[ "$?" = '1' ]]; then
-  echo $COV
-  exit 1
-fi
+FAILED="$?"
 set -e
 
 # Run Codecov for full table
-FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --table`
+FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --print-format table`
 
 # Dump to txt file
 echo "$FULL_COV_TABLE" > './codecov.txt'
 
-# Export env var
+# Export env vars
 echo "::set-output name=codecov::${COV}"
+echo "::set-output name=minimum_coverage::${MINIMUM_COVERAGE}"
 echo "CODECOV=${COV}" >> $GITHUB_ENV
+echo "MINIMUM_COVERAGE=${MINIMUM_COVERAGE}" >> $GITHUB_ENV
 
 # Print to stdout
 if [ "$PRINT_STDOUT" = 'true' ]; then
   echo "$FULL_COV_TABLE"
+fi
+
+if [[ "$FAILED" = '1' ]]; then
+  exit 1
 fi

@@ -1,4 +1,4 @@
-FROM mattpolzin2/swift-test-codecov:0.9.0
+FROM mattpolzin2/swift-test-codecov:0.10.0
 
 # WORKDIR /github/workspace
 

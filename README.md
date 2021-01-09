@@ -16,10 +16,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: swift test --enable-test-discovery --enable-code-coverage
-    - uses: mattpolzin/swift-codecov-action@0.5.0
+    - uses: mattpolzin/swift-codecov-action@0.6.0
+      with:
+        MINIMUM_COVERAGE: 98
 ```
 
-Note the `--enable-code-coverage` argument to `swift test` is **required**.
+Note that you must execute your project's tests using `swift test` with the `--enable-code-coverage` argument to generate the file ingested by this action.
 
 Inputs:
 - `CODECOV_JSON`: The location of the JSON file produced by swift test `--enable-code-coverage`. By default `.build/debug/codecov/*.json`.
@@ -28,4 +30,7 @@ Inputs:
 - `SORT_ORDER`: `filename` by default. Determines the sort order of the code coverage table. Possible values: `filename`, `+cov`, `-cov`.
 
 Outputs:
-- `CODECOV`: Overall code coverage percentage (not output if action fails due to minimum coverage not being met).
+- `CODECOV`: Overall code coverage percentage.
+- `MINIMUM_COVERAGE`: Just passing through the `MINIMUM_COVERAGE` input.
+  
+Regardless of wheher or not you have chosen to have the action print to `stdout`, the code coverage table will be dumped to the `./codecov.txt` file.
