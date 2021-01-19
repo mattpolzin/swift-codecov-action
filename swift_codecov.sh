@@ -38,21 +38,21 @@ fi
 
 # Run Codecov for overall coverage
 set +e
-COV=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER $MIN_COV_ARG`
+COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG`
 FAILED="$?"
 set -e
 
 # Run Codecov for full table
-FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --print-format table`
+FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-format table`
 
 # Dump to txt file
 echo "$FULL_COV_TABLE" > './codecov.txt'
 
 # Export env vars
 echo "::set-output name=codecov::${COV}"
-echo "::set-output name=minimum_coverage::${MINIMUM_COVERAGE}"
+echo "::set-output name=minimum_coverage::${INPUT_MINIMUM_COVERAGE}"
 echo "CODECOV=${COV}" >> $GITHUB_ENV
-echo "MINIMUM_COVERAGE=${MINIMUM_COVERAGE}" >> $GITHUB_ENV
+echo "MINIMUM_COVERAGE=${INPUT_MINIMUM_COVERAGE}" >> $GITHUB_ENV
 
 # Print to stdout
 if [ "$PRINT_STDOUT" = 'true' ]; then
