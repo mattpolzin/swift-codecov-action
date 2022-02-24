@@ -5,19 +5,19 @@ set -e
 
 ##
 ## INPUTS
-## - $INPUT_CODECOV_JSON   - The location of the JSON file produced by
-##                           swift test --enable-code-coverage
-## - $INPUT_PRINT_STDOUT   - 'true' by default, but if 'false' then will not
-##                           output the whole codecov table to stdout.
-## - $INPUT_SORT_ORDER     - 'filename' by default. Possible values: filename,
-## 		                       +cov, -cov
-## - $MINIMUM_COVERAGE     - By default, there is no minimum coverage. Set this
-##                           to make the script fail if the minimum coverage is not met.
-## - $INCLUDE_DEPENDENCIES - 'false' by default, but if 'true' then coverage numbers will
-##                           include project dependencies.
-## - $INCLUDE_TESTS        - 'false' by default, but if 'true' then coverage numbers will
-##                           include the percentage of the test files themselves that was
-##                           exercised.
+## - $INPUT_CODECOV_JSON         - The location of the JSON file produced by
+##                                 swift test --enable-code-coverage
+## - $INPUT_PRINT_STDOUT         - 'true' by default, but if 'false' then will not
+##                                 output the whole codecov table to stdout.
+## - $INPUT_SORT_ORDER           - 'filename' by default. Possible values: filename,
+## 		                             +cov, -cov
+## - $INPUT_MINIMUM_COVERAGE     - By default, there is no minimum coverage. Set this
+##                                 to make the script fail if the minimum coverage is not met.
+## - $INPUT_INCLUDE_DEPENDENCIES - 'false' by default, but if 'true' then coverage numbers will
+##                                 include project dependencies.
+## - $INPUT_INCLUDE_TESTS        - 'false' by default, but if 'true' then coverage numbers will
+##                                 include the percentage of the test files themselves that was
+##                                 exercised.
 ##
 ## OUTPUTS
 ## - $CODECOV             - Overal code coverage percent.
@@ -35,13 +35,13 @@ PRINT_STDOUT=${INPUT_PRINT_STDOUT:-true}
 # Set default sort order
 SORT_ORDER=${INPUT_SORT_ORDER:-filename}
 
-if [[ "$INCLUDE_DEPENDENCIES" = 'true' ]]; then
+if [[ "$INPUT_INCLUDE_DEPENDENCIES" = 'true' ]]; then
   DEPS_ARG='--dependencies'
 else
   DEPS_ARG='--no-dependencies'
 fi
 
-if [[ "$INCLUDE_TESTS" = 'true' ]]; then
+if [[ "$INPUT_INCLUDE_TESTS" = 'true' ]]; then
   TESTS_ARG='--tests'
 else
   TESTS_ARG='--no-tests'
