@@ -21,6 +21,7 @@ jobs:
     - uses: mattpolzin/swift-codecov-action@0.7.0
       with:
         MINIMUM_COVERAGE: 98
+        INCLUDE_TESTS: 'true'
 ```
 
 Note that you must execute your project's tests using `swift test` with the `--enable-code-coverage` argument to generate the file ingested by this action.
