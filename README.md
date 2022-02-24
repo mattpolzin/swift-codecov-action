@@ -30,9 +30,11 @@ Inputs:
 - `MINIMUM_COVERAGE`: By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.
 - `PRINT_STDOUT`: `true` by default, but if `false` then will not output the whole codecov table to stdout.
 - `SORT_ORDER`: `filename` by default. Determines the sort order of the code coverage table. Possible values: `filename`, `+cov`, `-cov`.
+- `INCLUDE_DEPENDENCIES`: `false` by default, but if `true` then coverage numbers will include project dependencies.
+- `INCLUDE_TESTS`: `false` by default, but if `true` then coverage numbers will include the percentage of the test files themselves that was exercised.
 
 Outputs:
 - `CODECOV`: Overall code coverage percentage.
 - `MINIMUM_COVERAGE`: Just passing through the `MINIMUM_COVERAGE` input.
   
-Regardless of wheher or not you have chosen to have the action print to `stdout`, the code coverage table will be dumped to the `./codecov.txt` file.
+Regardless of whether or not you have chosen to have the action print to `stdout`, the code coverage table will be dumped to the `./codecov.txt` file.

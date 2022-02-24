@@ -17,9 +17,19 @@ inputs:
   MINIMUM_COVERAGE:
     description: 'By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.'
     required: false
+  INCLUDE_DEPENDENCIES:
+    description: '`false` by default, but if `true` then coverage numbers will include project dependencies.'
+    required: false
+    default: 'false'
+  INCLUDE_TESTS:
+    description: '`false` by default, but if `true` then coverage numbers will include the percentage of the test files themselves that was exercised.'
+    required: false
+    default: 'false'
 outputs:
   CODECOV:
     description: Overall code coverage percent.
+  MINIMUM_COVERAGE:
+    description: Just passing through the `MINIMUM_COVERAGE` input.
 branding:
   color: orange
   icon: shield
