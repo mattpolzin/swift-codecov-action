@@ -2,6 +2,10 @@ name: swift-codecov
 description: Runs simple analysis on swift test codecov output.
 author: Mathew Polzin
 inputs:
+  PROJECT_NAME:
+    description: 'The name of the target project. This must be specified if you would like local dependencies (specified by path in the project manifest) to be left out of coverage numbers. If specified, this must be exactly the same spelling as the root folder of the target project.'
+    required: false
+    default: ''
   CODECOV_JSON:
     description: 'The location of the JSON file produced by swift test --enable-code-coverage'
     required: false
