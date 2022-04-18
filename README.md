@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: swift test --enable-test-discovery --enable-code-coverage
-    - uses: mattpolzin/swift-codecov-action@0.7.2
+    - uses: mattpolzin/swift-codecov-action@0.7.3
       with:
         MINIMUM_COVERAGE: 98
         INCLUDE_TESTS: 'true'
@@ -27,6 +27,7 @@ jobs:
 Note that you must execute your project's tests using `swift test` with the `--enable-code-coverage` argument to generate the file ingested by this action.
 
 Inputs:
+- `PROJECT_NAME`: The name of the target project. This must be specified if you would like local dependencies (specified by path in the project manifest) to be left out of coverage numbers. If specified, this must be exactly the same spelling as the root folder of the target project.
 - `CODECOV_JSON`: The location of the JSON file produced by swift test `--enable-code-coverage`. By default `.build/debug/codecov/*.json`.
 - `MINIMUM_COVERAGE`: By default, there is no minimum coverage. Set this to make the script fail if the minimum coverage is not met.
 - `PRINT_STDOUT`: `true` by default, but if `false` then will not output the whole codecov table to stdout.

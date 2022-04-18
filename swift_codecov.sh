@@ -5,6 +5,10 @@ set -e
 
 ##
 ## INPUTS
+## - $INPUT_PROJECT_NAME         - The of the project, which must be exactly the
+##                                 name of the root folder of the target project
+##                                 for local dependencies and target project source
+##                                 code to be accurately differentiated.
 ## - $INPUT_CODECOV_JSON         - The location of the JSON file produced by
 ##                                 swift test --enable-code-coverage
 ## - $INPUT_PRINT_STDOUT         - 'true' by default, but if 'false' then will not
@@ -25,6 +29,8 @@ set -e
 ## - ./codecov.txt        - Code coverage in a file.
 ##
 
+# The project name (root folder of target project)
+PROJECT_NAME="${INPUT_PROJECT_NAME}"
 
 # Set default location for JSON
 CODECOV_JSON=${INPUT_CODECOV_JSON:-.build/debug/codecov/*.json}
@@ -55,12 +61,12 @@ fi
 
 # Run Codecov for overall coverage
 set +e
-COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG`
+COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --project-name "$PROJECT_NAME"`
 FAILED="$?"
 set -e
 
 # Run Codecov for full table
-FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-format table`
+FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-format table --project-name "$PROJECT_NAME"`
 
 # Dump to txt file
 echo "$FULL_COV_TABLE" > './codecov.txt'
