@@ -61,12 +61,12 @@ fi
 
 # Run Codecov for overall coverage
 set +e
-COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --project-name "$PROJECT_NAME"`
+COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --no-explain-failure --print-format minimal --project-name "$PROJECT_NAME"`
 FAILED="$?"
 set -e
 
 # Run Codecov for full table
-FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-format table --project-name "$PROJECT_NAME"`
+FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --explain-failure --print-format table --project-name "$PROJECT_NAME"`
 
 # Dump to txt file
 echo "$FULL_COV_TABLE" > './codecov.txt'
