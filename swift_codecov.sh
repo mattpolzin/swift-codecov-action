@@ -72,8 +72,8 @@ FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-form
 echo "$FULL_COV_TABLE" > './codecov.txt'
 
 # Export env vars
-echo "::set-output name=codecov::${COV}"
-echo "::set-output name=minimum_coverage::${INPUT_MINIMUM_COVERAGE}"
+echo "CODECOV=${COV}" >> $GITHUB_OUTPUT
+echo "MINIMUM_COVERAGE=${INPUT_MINIMUM_COVERAGE}" >> $GITHUB_OUTPUT
 echo "CODECOV=${COV}" >> $GITHUB_ENV
 echo "MINIMUM_COVERAGE=${INPUT_MINIMUM_COVERAGE}" >> $GITHUB_ENV
 
