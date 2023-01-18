@@ -61,19 +61,19 @@ fi
 
 # Run Codecov for overall coverage
 set +e
-COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --project-name "$PROJECT_NAME"`
+COV=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --no-explain-failure --print-format minimal --project-name "$PROJECT_NAME"`
 FAILED="$?"
-set -e
 
 # Run Codecov for full table
-FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON --sort $SORT_ORDER --print-format table --project-name "$PROJECT_NAME"`
+FULL_COV_TABLE=`swift-test-codecov $CODECOV_JSON $MIN_COV_ARG $DEPS_ARG $TESTS_ARG --sort $SORT_ORDER --explain-failure --print-format table --project-name "$PROJECT_NAME"`
+set -e
 
 # Dump to txt file
 echo "$FULL_COV_TABLE" > './codecov.txt'
 
 # Export env vars
-echo "::set-output name=codecov::${COV}"
-echo "::set-output name=minimum_coverage::${INPUT_MINIMUM_COVERAGE}"
+echo "CODECOV=${COV}" >> $GITHUB_OUTPUT
+echo "MINIMUM_COVERAGE=${INPUT_MINIMUM_COVERAGE}" >> $GITHUB_OUTPUT
 echo "CODECOV=${COV}" >> $GITHUB_ENV
 echo "MINIMUM_COVERAGE=${INPUT_MINIMUM_COVERAGE}" >> $GITHUB_ENV
 
